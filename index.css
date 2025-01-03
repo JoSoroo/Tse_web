@@ -1,0 +1,395 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 8px solid #ffb800;
+}
+
+.logo {
+    width: 80px;
+    margin-left: 20px;
+}
+
+.headerul {
+    display: flex;
+    list-style: none;
+}
+
+.headerli {
+    margin-left: 40px;
+}
+
+.headericon img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Large Image Section */
+.TomZurag {
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+    
+}
+
+.TomZurag img {
+    width: 100%;
+    
+}
+
+/* Sidebar */
+aside {
+    position: sticky;
+    top: 80px;
+    width: 15%;
+    height: 100%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    float: left;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li button {
+    display: block;
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-left: 3px solid transparent;
+}
+
+aside li button:hover {
+    color: #ffb800;
+    border-left: 3px solid #ffb800;
+}
+
+/* Main Content */
+article {
+    width: 85%;
+    padding: 20px;
+    float: right;
+}
+
+/* Share Food and Food Sections */
+.sharefoodsection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    margin: 20px auto; 
+    padding: 10px;
+    max-width: 1200px; 
+}
+.foodsection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right; /* Centers the items within the container */
+    margin: 20px auto; /* Adds some vertical margin for spacing */
+    padding: 10px;
+    max-width: 1200px; /* Keeps layout neat on larger screens */
+}
+
+.menuSub {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the items within the container */
+    margin: 20px auto; /* Adds some vertical margin for spacing */
+    padding: 10px;
+    max-width: 1200px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px;
+}
+
+/* Product Cards */
+.product {
+    display: inline-block;
+    width: 250px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.productimgShare {
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    justify-content: center;
+    display: block; /* Блок элемент болгож өөрчлөх */
+    margin-left: auto; /* Зургийг зүүн талд оруулна */
+    margin-right: auto;
+}
+.productArticle {
+    display: inline-block;
+    width: 250px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.product-actions{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    padding: 10px;
+    justify-content: center;
+    row-gap: 15px; /* Зөвхөн мөр хоорондын зайг нэмнэ */
+    column-gap: 10px; 
+    text-align: right;
+}
+.product-title{
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    row-gap: 15px; /* Зөвхөн мөр хоорондын зайг нэмнэ */
+    column-gap: 10px;
+}
+.productimg {
+    width: 200px;
+    height: 100px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.productsub {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    row-gap: 15px; /* Зөвхөн мөр хоорондын зайг нэмнэ */
+    column-gap: 10px;
+}
+
+.tooluur, .zahialah {
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.tooluur {
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0 5px;
+}
+
+.zahialah {
+    background-color: #ffb800;
+    color: white;
+    width: 100px;
+    font-weight: bold;
+}
+
+/* Comment Section */
+.comment {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.profileCommentImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.hereglegchNer {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.commentSub {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Footer */
+.footerid {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+}
+
+.footer-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.footer-icon i {
+    font-size: 20px;
+}
+
+.footer-icon:hover {
+    background-color: #fff;
+    color: #222;
+    transform: scale(1.1);
+}
+
+.footertext {
+    margin-top: 10px;
+    font-size: 14px;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    aside {
+        width: 100%;
+        float: none;
+    }
+
+    article {
+        width: 100%;
+        float: none;
+    }
+
+    .header, .footerid {
+        flex-direction: column;
+    }
+
+    .headerul {
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .footerid {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+.cart-wrapper {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    z-index: 100;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-wrapper.active {
+    display: block;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    right: 20px;
+    width: 350px;
+    background-color: white; /* White background */
+    color: black;            /* Black text */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px;     /* Border radius of 10px */
+    padding: 15px;           /* Some padding inside the tooltip */
+    z-index: 1000;           /* Ensure it appears on top */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+}
+
+.tooltip.active {
+    display: block; /* Show the tooltip when the 'active' class is added */
+}
+
+.red-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-1650%, 100%); /* Зөв байрлалд зөөх */
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+}
+
+.red-circle.active {
+    display: block;
+}
+.delete-icon {
+    color: red;               /* Set the icon color to red */
+    font-size: 20px;          /* Adjust the font size */
+    cursor: pointer;         /* Change the cursor to indicate it's clickable */
+    transition: color 0.3s;   /* Add a smooth transition effect */
+}
+
+.delete-icon:hover {
+    color: darkred;           /* Change color on hover for better user interaction */
+}
+/* Default Light Mode Styles */
+:root {
+    --background-color: white;
+    --text-color: black;
+}
+
+/* Dark Mode Styles */
+[data-theme="dark"] {
+    --background-color: #121212;  /* Dark mode background */
+    --text-color: white;          /* Dark mode text */
+}
+
+

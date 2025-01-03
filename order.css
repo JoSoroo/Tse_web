@@ -1,0 +1,58 @@
+/* Reset */
+:root{
+    --shar_ongo--:#ffb800;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin-top: 80px; 
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 8px solid #ffb800;
+    z-index: 1000; 
+}
+
+.logo {
+    width: 80px;
+    margin-left: 20px;
+}
+
+.headerul {
+    display: flex;
+    list-style: none;
+}
+
+.headerli {
+    margin-left: 40px;
+}
+
+.headericon img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Content section */
+.tanii_zahialga {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px;
+    color: #333;
+}

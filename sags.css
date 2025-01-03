@@ -1,0 +1,147 @@
+/* Reset */
+:root{
+    --shar_ongo--:#ffb800;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin-top: 80px; 
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 8px solid #ffb800;
+    z-index: 1000; 
+}
+
+.logo {
+    width: 80px;
+    margin-left: 20px;
+}
+
+.headerul {
+    display: flex;
+    list-style: none;
+}
+
+.headerli {
+    margin-left: 40px;
+}
+
+.headericon img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Content section */
+.tanii_zahialga {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px;
+    color: #333;
+}
+
+.zahialsan_section {
+    display: block;
+    margin: 20px;
+    padding: 20px;
+    
+}
+.article_zah {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.h2_zah {
+    display: block;
+    margin: 20px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #3a3a39;
+    padding-bottom: 5px;
+    text-decoration: underline;
+    text-decoration-color:#ffb800;
+    text-decoration-thickness: 2px;
+}
+
+
+
+.img_zah {
+    width: 200;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.zah_text {
+    display: flex;
+    flex-direction: column;
+}
+
+.span_zah_text {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Confirm button */
+.zahialah {
+    display: inline-block;
+    margin: 20px auto;
+    margin-right: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #ffb800;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 200px;
+    text-align: center;
+    float:right;
+}
+
+.zahialah:hover {
+    background-color: #e0a700;
+}
+.cart-item{
+    margin: 0;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+.ustgah{
+    margin: 50px;
+    margin-left: 250px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+}

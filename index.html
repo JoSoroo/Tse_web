@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tse pub</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header class="header">
+        <img src="./tse-logo-big.png" alt="Logo" class="logo">
+        <ul class="headerul">
+            <li class="headerli">
+                <a href="#" class="headericon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </a>
+            </li>
+            <li class="headerli">
+                <a href="sags.html" class="headericon">
+                    <i class="fa-solid fa-cart-shopping" id="cartIcon"></i>
+                    <div class="red-circle" id="redCircle"></div>
+                    <div class="tooltip" id="tooltip"></div>
+                </a>
+            </li>
+            <li class="headerli">
+                <a href="./Ordertable.html" class="headericon">
+                    <i class="fa-solid fa-table"></i>
+                </a>
+            </li>
+            <li class="headerli">
+                <a href="./index.html" class="headericon">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+            </li>
+            <li class="headerli">
+                <a href="./profile.html" class="headericon">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+        </ul>
+    </header>
+    
+    <article class="TomZurag">
+        <img src="./tse.jpg" alt="Main Image">
+    </article>
+    <aside id="produts">
+        <menu-filter></menu-filter>
+    </aside>
+    <h3 id="category-title" class="menuSub">Бүх бүтээгдэхүүн</h3>
+    <section class="sharefoodsection">
+        <product-list></product-list>
+    </section>
+    <footer class="footerid">
+        <div class="footer-container">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/tse.pub/" target="_blank" class="footer-link">
+                <div class="footer-icon">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <p class="footertext">Instagram</p>
+            </a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/tsepub" target="_blank" class="footer-link">
+                <div class="footer-icon">
+                    <i class="fa-brands fa-facebook"></i>
+                </div>
+                <p class="footertext">Facebook</p>
+            </a>
+            <!-- Phone -->
+            <a href="tel:+123456789" class="footer-link">
+                <div class="footer-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <p class="footertext">+123 456 789</p>
+            </a>
+            <!-- Location -->
+            <a href="https://www.google.com/maps/place/Tse+Pub/@47.9349317,106.8592052,12z/data=!4m10!1m2!2m1!1stse+pub!3m6!1s0x5d96924178dc408b:0x91bbde54cfb0c40e!8m2!3d47.922142!4d106.9205932!15sCgd0c2UgcHViWgkiB3RzZSBwdWKSAQNwdWLgAQA!16s%2Fg%2F11c2j2pp8k?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="footer-link">
+                <div class="footer-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <p class="footertext">Location</p>
+            </a>
+        </div>
+    </footer>
+    <script src="./app.js" type="module">
+    </script>
+       
+</body>
+</html>
