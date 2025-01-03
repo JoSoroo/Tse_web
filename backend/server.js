@@ -62,7 +62,7 @@ const Menu = mongoose.model("Menu", MenuSchema, "menu");
 const Product = mongoose.model("Product", ProductSchema);
 const Order = mongoose.model("Order", orderSchema);
 
-// Swagger-ийн тохиргоо
+// Swagger-ийн тохиргоог энд хийлээ
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
