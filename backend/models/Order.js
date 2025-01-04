@@ -1,7 +1,7 @@
 import mongoose from "../database.js";
 
 //Захиалга. Энэ нь захиалгын бүтээгдэхүүний нэр, тоо, үнэ, зураг болон тайлбар зэргийг хадгална.
-const orderSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
   items: [
       {
           product: { type: String, required: true }, // Бүтээгдэхүүний нэр
