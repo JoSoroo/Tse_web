@@ -1,31 +1,40 @@
 class ProductList extends HTMLElement {
     constructor() {
         super();
+        //Shadow DOM ашигласан компонент
         this.attachShadow({ mode: "open" });//нь тусгаарлагдсан DOM үүсгэж, элементэд дотоод HTML болон CSS-г нууцалдаг.
         this.products = [];
         this.filteredProducts = []; //бүтээгдэхүүний жагсаалт хадгалах массивууд
         
     }
+    //Компонентууд нь Property тай байх. Аттрибут солигдоход ордог өөрчлөлтийг эсвэл өөр ямар нэг шинж чанарыг Property ашиглан өөрчилдөг байх. (1 оноо) 
     // Гаднаас бүтээгдэхүүний жагсаалтыг хүлээн авч хадгална.
     setProducts(products) { 
         this.products = products;
         this.filteredProducts = products;//Бүтээгдэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
         this.render();
     }
-//Элемент холбогдох үед шүүлтүүр болон эвентийн сонсогч нэмэх
+    //Компонентын аттрибут солигдоход өөрчлөлт шууд wc доо хувиралт өгч байх. (1 оноо)
+    //Элемент холбогдох үед шүүлтүүр болон эвентийн сонсогч нэмэх
     connectedCallback() {
-        window.addEventListener("category-changed", (event) => {//Өөрчлөгдсөн категорийн утгыг сонсож, бүтээгдэхүүнийг шүүнэ.
+        this.addEventListener("category-changed", (event) => {
             const category = event.detail;
             this.filteredProducts =
-                category === "all"//Хэрэв категори нь "all" бол бүх бүтээгдэхүүнүүдийг харуулна.
-                    ? this.products
-                    : this.products.filter((p) => p.category === category);//Эс бөгөөс тухайн категорид харгалзах бүтээгдэхүүнүүдийг filter-ээр шүүж байна.
+                category === "all" 
+                    ? this.products 
+                    : this.products.filter((p) => p.category === category);
             this.render();
         });
 
+        // Аттрибутын өөрчлөлт гарсны дараа theme өөрчлөгдсөнийг хянаж, render-г дуудна
+        const theme = this.getAttribute("theme") || "light"; // Дараах хэрэглэгчийн theme аттрибут
+        this.setAttribute("theme", theme); // Аттрибутыг шинэчлэх
+
         this.render();
     }
-//Тоо хэмжээг нэмэх, хасах
+
+    //state() ашиглаж стилүүдийг зааж өгөх
+    //Тоо хэмжээг нэмэх, хасах
     handleQuantityChange(productId, action) {
         const quantityElement = this.shadowRoot.querySelector(`#quantity-${productId}`);
         let quantity = parseInt(quantityElement.textContent);
@@ -57,7 +66,7 @@ class ProductList extends HTMLElement {
                 --spacing: 10px; /* Заагдсан зай */
             }
 
-            /* Dark/Light горим */
+            /* Dark/Light горим Dark болон Light Mode дэмжих (CSS Custom Properties)*/
             :host([theme='dark']) {
                 --primary-bg: #333; /* Dark горимд фоны өнгө */
                 --secondary-bg: #fff; /* Dark горимд хоёрдогч фоны өнгө */
@@ -233,7 +242,7 @@ class ProductList extends HTMLElement {
             }
 
 </style>
-
+            /*Template болон Slot ашиглах*/
             <section class="sharefoodsection">
                 ${this.filteredProducts
                     .map(
@@ -273,6 +282,7 @@ class ProductList extends HTMLElement {
                 const quantity = this.shadowRoot.querySelector(`#quantity-${productId}`).textContent;  // Тоо хэмжээ
                 const product = this.products.find((p) => p.id === parseInt(productId));  // products массив дотроос ID-гаар нь бүтээгдэхүүнийг хайж олох.sz
         
+                //Аль нэг компонентд CustomEvent үүсгэх бөгөөд өөр нэг компонентд тэр event тэй холбоотой өөрчлөлт ордог болгоно. Сагсанд орсон барааны мэдээллээс НИЙТ үнэ гаргаж байгаа компонент нь боддог гэх мэт. (1 оноо)
                 // "add-to-cart" event илгээх
                 this.dispatchEvent(
                     new CustomEvent("add-to-cart", {//"add-to-cart" гэсэн өөрчлөн зохион бүтээсэн (custom) эвентыг үүсгэж, product болон quantity мэдээллийг агуулна.
