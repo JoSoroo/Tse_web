@@ -1,4 +1,8 @@
 class ProductList extends HTMLElement {
+    static get observedAttributes() {
+        // Хянах аттрибутын жагсаалт
+        return ["theme"];
+    }
     constructor() {
         super();
         //Shadow DOM ашигласан компонент
@@ -11,10 +15,36 @@ class ProductList extends HTMLElement {
     // Гаднаас бүтээгдэхүүний жагсаалтыг хүлээн авч хадгална.
     setProducts(products) { 
         this.products = products;
-        this.filteredProducts = products;//Бүтээгдэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
+        this.filteredProducts = products;//Бүтээг
+        // дэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
         this.render();
     }
+    set Products(products) { 
+        this.products = products;
+        this.filteredProducts = products;//Бүтээг
+        // дэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
+        this.render();
+    }
+    get Products(){
+        return this.products;
+    }
     //Компонентын аттрибут солигдоход өөрчлөлт шууд wc доо хувиралт өгч байх. (1 оноо)
+    attributeChangedCallback(name, oldValue, newValue) {
+        // Аттрибут өөрчлөгдөх үед автоматаар ажиллах функц
+        if (name === "theme" && oldValue !== newValue) {
+            this.updateTheme(newValue);
+        }
+    }
+    
+    updateTheme(theme) {
+        // Theme солих функц
+        if (theme === "dark") {
+            this.shadowRoot.querySelector(".sharefoodsection").classList.add("dark-mode");
+        } else {
+            this.shadowRoot.querySelector(".sharefoodsection").classList.remove("dark-mode");
+        }
+    }
+    
     //Элемент холбогдох үед шүүлтүүр болон эвентийн сонсогч нэмэх
     connectedCallback() {
         window.addEventListener("category-changed", (event) => {//Өөрчлөгдсөн категорийн утгыг сонсож, бүтээгдэхүүнийг шүүнэ.
@@ -62,15 +92,23 @@ class ProductList extends HTMLElement {
                 --transition-duration: 0.3s; /* Залгах хугацаа */
                 --font-size: 16px; /* Үсгийн хэмжээ */
                 --spacing: 10px; /* Заагдсан зай */
+                --box-shadow : 5px 2px 5px rgba(0, 0, 0, 0.1);
             }
 
             /* Dark/Light горим Dark болон Light Mode дэмжих (CSS Custom Properties)*/
             :host([theme='dark']) {
-                --primary-bg: #333; /* Dark горимд фоны өнгө */
-                --secondary-bg: #fff; /* Dark горимд хоёрдогч фоны өнгө */
-                --primary-text: #fff; /* Dark горимд текстийн өнгө */
-                --secondary-text: #333; /* Dark горимд хоёрдогч текстийн өнгө */
-            }
+                --primary-bg: #121212; /* Dark горимд гол фон өнгө */
+                --secondary-bg: #1e1e1e; /* Dark горимд хоёрдогч фон өнгө */
+                --primary-text: #eaeaea; /* Dark горимд гол текстийн өнгө */
+                --secondary-text: #b0b0b0; /* Dark горимд хоёрдогч текстийн өнгө */
+                --accent-color: #ff4081; /* Dark горимд тусгай онцлог өнгө */
+                --border-color: #444; /* Dark горимд хилэнц өнгө */
+                
+                background-color: var(--primary-bg); /* фон */
+                color: var(--primary-text); /* текстийн өнгө */
+                border: 1px solid var(--border-color); 
+                transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease; /* плавны шилжилт */
+}
 
             /* Бүтээгдэхүүн жагсаалтын контейнер */
             .sharefoodsection {
@@ -106,7 +144,7 @@ class ProductList extends HTMLElement {
             .product {
                 display: inline-block; /* Бүтээгдэхүүний картуудын байрлалыг inline block болгон тохируулна */
                 width: 100%; /* Өргөн */
-                background-color: white; /* Фон цагаан */
+                background-color: var(--primary-bg); /* Фон цагаан */
                 border: 1px solid #ccc; /* Хүрээ нарийн, саарал өнгөтэй */
                 border-radius: 8px; /* Баганын дугуйралт */
                 margin: 10px; /* Бүтээгдэхүүн хоорондын зай */
@@ -128,7 +166,7 @@ class ProductList extends HTMLElement {
             /* Бүтээгдэхүүний карт дээр hover (хулганы заагч) */
             .product:hover {
                 transform: scale(1.05); /* Картыг ихэсгэх */
-                box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Илүү тод сүүдэр */
+                box-shadow: var(--box-shadow ); /* Илүү тод сүүдэр */
             }
 
             /* Бүтээгдэхүүний зураг дээр hover (хулганы заагч) */
@@ -238,6 +276,14 @@ class ProductList extends HTMLElement {
                 gap: 10px; /* Заагдсан зай */
                 margin-top: 10px; /* Дээд талын зай */
             }
+            @media (prefers-color-schema: dark){
+                :root {
+                    --primary-bg: #333; /* Dark горимд фоны өнгө */
+                    --secondary-bg: #fff; /* Dark горимд хоёрдогч фоны өнгө */
+                    --primary-text: #fff; /* Dark горимд текстийн өнгө */
+                    --secondary-text: #333; /* Dark горимд хоёрдогч текстийн өнгө */
+                    }
+                }
 
 </style>
            
