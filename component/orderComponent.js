@@ -64,12 +64,22 @@ class OrderComponent extends HTMLElement {
 
     async deleteOrder(orderId) {
         try {
-            //Тухайн захиалгын ID-г ашиглан серверээс устгах хүсэлт илгээнэ.
             console.log("Deleting order with ID:", orderId);
+    
+            // Устгах товчлуураас холбогдох order-item элементийг олох
+            const orderElement = this.shadowRoot.querySelector(`[data-id="${orderId}"]`).closest('.order-item');
+    
+            // fade-out класс нэмж анимацийг идэвхжүүлэх
+            orderElement.classList.add('fade-out');
+    
+            // Анимаци дуусах хүртэл түр хүлээнэ (300ms)
+            await new Promise(resolve => setTimeout(resolve, 300));
+    
+            // Серверээс устгах хүсэлт илгээх
             const response = await fetch(`http://localhost:5000/orders/${orderId}`, {
                 method: "DELETE",
             });
-
+    
             if (response.ok) {
                 alert("Захиалга амжилттай устгагдлаа.");
                 this.getOrders(); // Захиалгуудыг дахин авах
@@ -80,28 +90,54 @@ class OrderComponent extends HTMLElement {
             console.error("Сүлжээний алдаа:", error);
         }
     }
+    
 
     render() {
         this.shadowRoot.innerHTML = `
             <style>
-                .order-item {
+                 .order-item {
                     margin: 15px 0;
                     padding: 10px;
                     border: 1px solid #ddd;
                     border-radius: 4px;
+                    opacity: 1;
+                    transform: translateY(0);
+                    transition: opacity 0.3s ease, transform 0.3s ease;
                 }
-                .order-item p {
-                    margin: 5px 0;
+
+                .order-item.fade-out {
+                    opacity: 0;
+                    transform: translateY(20px);
                 }
+
                 .delete-btn {
                     background-color: red;
                     color: white;
                     border: none;
                     padding: 5px 10px;
                     cursor: pointer;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
                 }
+
                 .delete-btn:hover {
                     background-color: darkred;
+                    transform: scale(1.1);
+                }
+
+                /* Fade-in анимэйшн */
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                #order-list .order-item {
+                    animation: fadeIn 0.5s ease both;
                 }
             </style>
             <div>

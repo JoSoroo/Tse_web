@@ -97,51 +97,79 @@ class Sags extends HTMLElement {
         } else {
             const html = this.cartItems.map(item => `
                 <style>
-                    /* Style for the component */
-                    .article_zah {
-                        display: flex;
-                        align-items: center;
-                        margin-top: 10px;
-                        background-color: #fff;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                        padding: 10px;
-                    }
+    .article_zah {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.5s ease, transform 0.3s ease;
+    }
 
-                    .img_zah {
-                        width: 100px;
-                        height: 100px;
-                        object-fit: cover;
-                        border-radius: 8px;
-                        margin-right: 20px;
-                    }
+    /* Fade-out Animation */
+    .article_zah.fade-out {
+        opacity: 0;
+        transform: scale(0.95);
+    }
 
-                    .zah_text {
-                        display: flex;
-                        flex-direction: column;
-                        flex-grow: 1;
-                    }
+    .img_zah {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
 
-                    .span_zah_text {
-                        font-size: 16px;
-                        margin-bottom: 5px;
-                        color: #333;
-                    }
+    .zah_text {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
 
-                    .ustgah {
-                        background-color: #ff4d4d;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        padding: 5px 10px;
-                        cursor: pointer;
-                        font-size: 14px;
-                    }
+    .span_zah_text {
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: #333;
+    }
 
-                    .ustgah:hover {
-                        background-color: #e60000;
-                    }
-                </style>
+    .ustgah {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .ustgah:hover {
+        background-color: #e60000;
+        transform: scale(1.1);
+    }
+
+    .checkout {
+        margin-top: 15px;
+        background-color:rgb(238, 232, 82);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .checkout:hover {
+        background-color:#ffb800
+        transform: scale(1.05);
+    }
+</style>
+
                 <article class="article_zah">
                     <img src="${item.img || './hool.png'}" alt="Бүтээгдэхүүний зураг" class="img_zah">
                     <section class="zah_text">

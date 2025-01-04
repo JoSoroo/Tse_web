@@ -65,22 +65,32 @@ class ProductList extends HTMLElement {
                 }
                 .product {
                     display: inline-block;
-                    width: 250px;  /* Бүтээгдэхүүний өргөн */
-                    height: 400px;  /* Бүтээгдэхүүний өндөр, эдгээрийг харгалзан тохируулна */
+                    width: 250px;
+                    height: 400px;
                     background-color: white;
-                    border: 1px solid #e0e0e0;  /* Гаднах хүрээ */
+                    border: 1px solid #e0e0e0;
                     border-radius: 5px;
                     margin: 10px;
                     padding: 15px;
                     text-align: center;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                    box-sizing: border-box;  /* Хүрээг тооцоололтод оруулах */
-                }
-
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+                /* Бүтээгдэхүүн дээр хулганы заагч ирэх үед */
+                    .product:hover {
+                        transform: scale(1.05);
+                        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+                    }
                 .product img {
                     width: 100%;  /* Зургийг бүтээгдэхүүний өргөнд тохируулна */
                     height: 200px;  /* Зургийн өндөр */
                     object-fit: cover;  /* Зураг ачаалагдахдаа бүтэн талбарыг бүрэх */
+                    border-radius: 5px;
+                    transition: transform 0.4s ease, filter 0.4s ease;
+                }
+                .product img:hover {
+                    transform: scale(1.1) rotate(2deg);
+                    filter: brightness(1.1);
                 }
 
                 .product-title {
@@ -108,8 +118,12 @@ class ProductList extends HTMLElement {
                     font-size: 16px;
                     cursor: pointer;
                     border-radius: 2px;
+                    transition: background-color 0.3s ease, transform 0.3s ease;
                 }
-
+                .tooluur:hover {
+                    background-color: #d6d6d6;
+                    transform: scale(1.1);
+                }
                 .tooluur {
                     background-color: #f5f5f5;
                     color: #333;
@@ -122,6 +136,23 @@ class ProductList extends HTMLElement {
                     width: 100px;
                     font-weight: bold;
                 }
+                .zahialah:hover {
+                    background-color: #e69d00;
+                    transform: scale(1.05);
+                }
+                 /* Анимэйшн - "fade-in" эффект */
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                
             </style>
             <section class="sharefoodsection">
                 ${this.filteredProducts
