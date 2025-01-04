@@ -17,19 +17,17 @@ class ProductList extends HTMLElement {
     //Компонентын аттрибут солигдоход өөрчлөлт шууд wc доо хувиралт өгч байх. (1 оноо)
     //Элемент холбогдох үед шүүлтүүр болон эвентийн сонсогч нэмэх
     connectedCallback() {
-        this.addEventListener("category-changed", (event) => {
+        window.addEventListener("category-changed", (event) => {//Өөрчлөгдсөн категорийн утгыг сонсож, бүтээгдэхүүнийг шүүнэ.
             const category = event.detail;
             this.filteredProducts =
-                category === "all" 
-                    ? this.products 
-                    : this.products.filter((p) => p.category === category);
+                category === "all"//Хэрэв категори нь "all" бол бүх бүтээгдэхүүнүүдийг харуулна.
+                    ? this.products
+                    : this.products.filter((p) => p.category === category);//Эс бөгөөс тухайн категорид харгалзах бүтээгдэхүүнүүдийг filter-ээр шүүж байна.
             this.render();
         });
-
         // Аттрибутын өөрчлөлт гарсны дараа theme өөрчлөгдсөнийг хянаж, render-г дуудна
         const theme = this.getAttribute("theme") || "light"; // Дараах хэрэглэгчийн theme аттрибут
         this.setAttribute("theme", theme); // Аттрибутыг шинэчлэх
-
         this.render();
     }
 
@@ -242,8 +240,8 @@ class ProductList extends HTMLElement {
             }
 
 </style>
-            /*Template болон Slot ашиглах*/
-            <section class="sharefoodsection">
+           
+            <section class="sharefoodsection"> 
                 ${this.filteredProducts
                     .map(
                         (product) => `

@@ -1,28 +1,30 @@
 class Product_list extends HTMLElement {
     async connectedCallback() {
-        // Get token from localStorage
+        // Хэрэглэгчийн токеныг localStorage-аас авах
         const token = localStorage.getItem("authToken");
 
         if (!token) {
-            window.location.href = "index.html"; // Redirect to login if not authenticated
+            // Токен байхгүй бол нэвтрэх хуудас руу шилжих
+            window.location.href = "index.html"; // Нэвтрэх хуудас руу шилжүүлэх
             return;
         }
 
         try {
+            // Бүтээгдэхүүнүүдийг авах хүсэлт илгээх
             const response = await fetch("http://localhost:3000/product", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${token}`, // Send token in Authorization header
+                    "Authorization": `Bearer ${token}`, // Authorization   токен илгээх
                 },
             });
 
             const result = await response.json();
 
             if (response.ok) {
-                // Clear existing content
+                // Одоогийн контентыг цэвэрлэх
                 this.innerHTML = "";
 
-                // Add products to the component
+                // Бүтээгдэхүүнүүдийг гаргах
                 result.products.forEach(product => {
                     const productDiv = document.createElement("div");
                     productDiv.classList.add("product");
@@ -32,17 +34,19 @@ class Product_list extends HTMLElement {
                         <p>Price: ${product.price}</p>
                         <p>Category: ${product.category}</p>
                     `;
-                    this.appendChild(productDiv);
+                    this.appendChild(productDiv); // Бүтээгдэхүүнүүдийг элементийг DOM-д нэмэх
                 });
             } else {
+                // Продукцийн мэдээлэл ачаалахад алдаа гарсан бол харуулах
                 this.innerHTML = `<p>${result.message || "Failed to load products"}</p>`;
             }
         } catch (error) {
+            // Алдаа гарсан үед консольд бичих ба хэрэглэгчид мэдэгдэл харуулах
             console.error("Error fetching products:", error);
-            this.innerHTML = `<p>Error loading products.</p>`;
+            this.innerHTML = `<p>Error loading products.</p>`; // Продукцийн ачаалалд алдаа гарсан тухай мэдээлэл
         }
     }
 }
 
-// Register the custom element
+// Хувийн элемент (custom element) бүртгэх
 customElements.define("product-list", Product_list);

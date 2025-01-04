@@ -17,42 +17,51 @@ class MenuFilter extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
             <style>
-                ul {list-style: none;}
-                li button { display: block; padding: 10px; border: none; text-decoration: none; color: #333; font-weight: bold; margin-bottom: 10px; border-left: 3px solid transparent; }
+                ul { list-style: none; }
+                li button { 
+                    display: block; 
+                    padding: 10px; 
+                    border: none; 
+                    text-decoration: none; 
+                    color: #333; 
+                    font-weight: bold; 
+                    margin-bottom: 10px; 
+                    border-left: 3px solid transparent; 
+                }
                 li button:hover {
-                color: #ffb800;
-                border-left: 3px solid #ffb800;
+                    color: #ffb800;
+                    border-left: 3px solid #ffb800;
                 }
             </style>
             <ul>
                 <li>
-                ${this.menus
-                    .map(
-                        (menu) =>
-                        `<button data-id="${menu.id}">${menu.title}</button>`
-                    )
-                    .join("")}
+                    ${this.menus
+                        .map(
+                            (menu) => `<button data-id="${menu.id}">${menu.title}</button>`
+                        )
+                        .join("")}
                 </li>
             </ul>
         `;
-//menu filter хэсэг 
+        
+        //menu filter section
         this.shadowRoot.querySelectorAll("button").forEach((button) => {
             button.addEventListener("click", () => {
                 this.shadowRoot.querySelectorAll("button").forEach((btn) =>
                     btn.classList.remove("active")
                 );
                 button.classList.add("active");
-
-                const category = button.textContent.toLowerCase(); 
+    
+                const category = button.textContent.toLowerCase();
                 this.dispatchEvent(
                     new CustomEvent("category-changed", {
                         detail: category,
                         bubbles: true,
+                        composed: true  // Shadow DOM дотор тархах боломж олгоно
                     })
                 );
             });
         });
     }
-}
-
+}    
 customElements.define("menu-filter", MenuFilter);

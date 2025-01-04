@@ -165,7 +165,7 @@ class Sags extends HTMLElement {
     }
 
     .checkout:hover {
-        background-color:#ffb800
+        background-color:rgb(246, 239, 29);
         transform: scale(1.05);
     }
 </style>
