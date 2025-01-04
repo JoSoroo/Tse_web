@@ -43,117 +43,197 @@ class ProductList extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
             <style>
-                /* Scoped styles for ProductList */
                 :host {
-                    display: block;
-                    font-family: Arial, sans-serif;
-                }
-                .red-circle {
-                    position: absolute;
-                    top: -5px;
-                    right: -10px;
-                    width: 15px;
-                    height: 15px;
-                    background-color: red;
-                    border-radius: 50%;
-                    display: none;
-                    z-index: 1;
-                }
-                .red-circle.active {
-                    display: block;
-                    z-index: 2;
-                }
-                .product {
-                    display: inline-block;
-                    width: 250px;
-                    height: 400px;
-                    background-color: white;
-                    border: 1px solid #e0e0e0;
-                    border-radius: 5px;
-                    margin: 10px;
-                    padding: 15px;
-                    text-align: center;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    }
-                /* Бүтээгдэхүүн дээр хулганы заагч ирэх үед */
-                    .product:hover {
-                        transform: scale(1.05);
-                        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-                    }
-                .product img {
-                    width: 100%;  /* Зургийг бүтээгдэхүүний өргөнд тохируулна */
-                    height: 200px;  /* Зургийн өндөр */
-                    object-fit: cover;  /* Зураг ачаалагдахдаа бүтэн талбарыг бүрэх */
-                    border-radius: 5px;
-                    transition: transform 0.4s ease, filter 0.4s ease;
-                }
-                .product img:hover {
-                    transform: scale(1.1) rotate(2deg);
-                    filter: brightness(1.1);
-                }
+                display: block; /* Компонентыг блок гэж үзнэ */
+                font-family: 'Arial', sans-serif; /* Фонт */
+                --primary-bg: #fff; /* Анхны фоны өнгө */
+                --secondary-bg: #333; /* Хоёрдогч фоны өнгө */
+                --primary-text: #333; /* Анхны текстийн өнгө */
+                --secondary-text: #fff; /* Хоёрдогч текстийн өнгө */
+                --highlight-color: #ffb800; /* Онцгой өнгө */
+                --border-radius: 10px; /* Баганын ирмэгийн дугуйралт */
+                --transition-duration: 0.3s; /* Залгах хугацаа */
+                --font-size: 16px; /* Үсгийн хэмжээ */
+                --spacing: 10px; /* Заагдсан зай */
+            }
 
-                .product-title {
-                    font-size: 18px;
-                    margin: 10px 0;
-                    font-weight: bold;
-                }
+            /* Dark/Light горим */
+            :host([theme='dark']) {
+                --primary-bg: #333; /* Dark горимд фоны өнгө */
+                --secondary-bg: #fff; /* Dark горимд хоёрдогч фоны өнгө */
+                --primary-text: #fff; /* Dark горимд текстийн өнгө */
+                --secondary-text: #333; /* Dark горимд хоёрдогч текстийн өнгө */
+            }
 
-                .productsub {
-                    font-size: 14px;
-                    margin: 5px 0;
-                }
+            /* Бүтээгдэхүүн жагсаалтын контейнер */
+            .sharefoodsection {
+                display: grid; /* Грид ашиглаж байна */
+                grid-template-columns: repeat(4, 1fr); /* 4 баганагаар байршуулна */
+                gap: 80px; /* Бүтээгдэхүүн хоорондын зайг нэмнэ */
+                padding: 20px; /* Контейнерын доторх зай */
+                transition: background-color var(--transition-duration), color var(--transition-duration); /* Фоны өнгө болон текстийн өнгө өөрчлөгдөхөд аажмаар шилжих */
+            }
 
-                .product-actions {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-top: 15px;
+            /* Гар утасны том дэлгэцийн хувьд (1024px-аас бага) */
+            @media (max-width: 1024px) {
+                .sharefoodsection {
+                    grid-template-columns: repeat(3, 1fr); /* 3 баганаар байршуулна */
                 }
+            }
 
-                .tooluur,
-                .zahialah {
-                    border: none;
-                    padding: 5px 10px;
-                    font-size: 16px;
-                    cursor: pointer;
-                    border-radius: 2px;
-                    transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Гар утасны дэлгэцийн хувьд (768px-аас бага) */
+            @media (max-width: 768px) {
+                .sharefoodsection {
+                    grid-template-columns: repeat(2, 1fr); /* 2 баганаар байршуулна */
                 }
-                .tooluur:hover {
-                    background-color: #d6d6d6;
-                    transform: scale(1.1);
-                }
-                .tooluur {
-                    background-color: #f5f5f5;
-                    color: #333;
-                    margin: 0 5px;
-                }
+            }
 
-                .zahialah {
-                    background-color: #ffb800;
-                    color: white;
-                    width: 100px;
-                    font-weight: bold;
+            /* Гар утасны хамгийн жижиг дэлгэцийн хувьд (480px-аас бага) */
+            @media (max-width: 480px) {
+                .sharefoodsection {
+                    grid-template-columns: 1fr; /* 1 баганаар байршуулна */
                 }
-                .zahialah:hover {
-                    background-color: #e69d00;
-                    transform: scale(1.05);
-                }
-                 /* Анимэйшн - "fade-in" эффект */
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
+            }
 
-                
-            </style>
+            /* Бүтээгдэхүүний карт */
+            .product {
+                display: inline-block; /* Бүтээгдэхүүний картуудын байрлалыг inline block болгон тохируулна */
+                width: 100%; /* Өргөн */
+                background-color: white; /* Фон цагаан */
+                border: 1px solid #ccc; /* Хүрээ нарийн, саарал өнгөтэй */
+                border-radius: 8px; /* Баганын дугуйралт */
+                margin: 10px; /* Бүтээгдэхүүн хоорондын зай */
+                padding: 15px; /* Картын доторх зай */
+                text-align: center; /* Текстийг төвлөрүүлнэ */
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Сүүдэр нэмнэ */
+                transition: transform 0.3s ease, box-shadow 0.3s ease; /* Сүүлд нэмж оруулсан transform болон box-shadow transition */
+            }
+
+            /* Бүтээгдэхүүний зураг */
+            .product img {
+                width: 100%; /* Зураг өргөнтэйгээ тааруулах */
+                height: 200px; /* Зургийн өндөр */
+                object-fit: cover; /* Зургийн хэсэгчилсэн таглах */
+                border-radius: 8px; /* Баганын дугуйралт */
+                transition: transform 0.4s ease, filter 0.4s ease; /* Зургийн hover үед анимаци */
+            }
+
+            /* Бүтээгдэхүүний карт дээр hover (хулганы заагч) */
+            .product:hover {
+                transform: scale(1.05); /* Картыг ихэсгэх */
+                box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Илүү тод сүүдэр */
+            }
+
+            /* Бүтээгдэхүүний зураг дээр hover (хулганы заагч) */
+            .product img:hover {
+                transform: scale(1.1); /* Зураг томрох */
+                filter: brightness(1.1); /* Гэрэлтүүлэх */
+            }
+
+            /* Бүтээгдэхүүний гарчиг */
+            .product-title {
+                font-size: 1.2rem; /* Үсгийн хэмжээ */
+                margin: var(--spacing) 0; /* Заагдсан зай */
+                font-weight: bold; /* Жирийн */
+            }
+
+            /* Бүтээгдэхүүний тодорхойлолт */
+            .productsub {
+                font-size: 1rem; /* Үсгийн хэмжээ */
+                margin: var(--spacing) 0; /* Заагдсан зай */
+            }
+
+            /* Бүтээгдэхүүний үйлдлүүд */
+            .product-actions {
+                display: flex; /* Flexbox ашиглаж байна */
+                justify-content: space-between; /* Хажуу талаас нь байрлуулах */
+                align-items: center; /* Дунд нь байрлах */
+            }
+
+            /* Үйлдлүүдийн товчлуур */
+            .tooluur, .zahialah {
+                padding: 10px; /* Доторх зай */
+                border-radius: var(--border-radius); /* Дугуйралт */
+                font-size: 1rem; /* Үсгийн хэмжээ */
+                cursor: pointer; /* Хулгана товчлуурын дүрс */
+                transition: background-color var(--transition-duration), transform var(--transition-duration); /* Хулганы заагчийн өөрчлөлт */
+            }
+
+            /* Үйлдлийн товчлуурын өнгө */
+            .tooluur {
+                background-color: #f5f5f5; /* Нэрмэл өнгө */
+                color: var(--primary-text); /* Эхний текстийн өнгө */
+            }
+
+            .tooluur:hover {
+                background-color: #d6d6d6; /* Hover үед өнгө өөрчлөгдөнө */
+                transform: scale(1.1); /* Томрох */
+            }
+
+            /* Сагсанд нэмэх товчлуур */
+            .zahialah {
+                background-color: var(--highlight-color); /* Онцгой өнгө */
+                color: var(--secondary-text); /* Хоёрдогч текстийн өнгө */
+                font-weight: bold; /* Жирийн */
+            }
+
+            .zahialah:hover {
+                background-color: #e69d00; /* Hover үед өнгө өөрчлөгдөнө */
+                transform: scale(1.05); /* Томрох */
+            }
+
+            /* Анимаци: Fade-in */
+            @keyframes fadeIn {
+                0% {
+                    opacity: 0; /* Эхэнд нь харагдахгүй */
+                    transform: translateY(20px); /* Эхний байршил */
+                }
+                100% {
+                    opacity: 1; /* Харагдах болно */
+                    transform: translateY(0); /* Байршилд очно */
+                }
+            }
+
+            /* Бүтээгдэхүүн fade-in анимаци */
+            .product {
+                animation: fadeIn 0.5s ease-in-out; /* Анимаци */
+            }
+
+            /* Media Queries-ийг Responsive-д тохируулна */
+            @media (max-width: 768px) {
+                :host {
+                    --font-size: 14px; /* Үсгийн хэмжээг багасгах */
+                }
+                .sharefoodsection {
+                    grid-template-columns: 1fr 1fr; /* 2 багана */
+                }
+            }
+
+            @media (max-width: 480px) {
+                :host {
+                    --font-size: 12px; /* Үсгийн хэмжээг багасгах */
+                }
+                .sharefoodsection {
+                    grid-template-columns: 1fr; /* 1 багана */
+                }
+            }
+
+            /* Бүх товчлуурт дугуйралт болон сүүдэр */
+            .tooluur, .zahialah {
+                border-radius: var(--border-radius); /* Дугуйралт */
+                border: 2px solid transparent; /* Хүрээг өнгөгүй болгох */
+            }
+
+            /* Flexbox Layout for Product Actions */
+            .product-actions {
+                display: flex; /* Flexbox ашиглаж байна */
+                justify-content: space-between; /* Хажуу талаас байрлуулах */
+                gap: 10px; /* Заагдсан зай */
+                margin-top: 10px; /* Дээд талын зай */
+            }
+
+</style>
+
             <section class="sharefoodsection">
                 ${this.filteredProducts
                     .map(
