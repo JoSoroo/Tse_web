@@ -1,5 +1,8 @@
+
 import express from "express";
+import mongoose from "mongoose";  // mongoose импортлох
 import Order from "../models/Order.js";
+
 
 const router = express.Router();
 // Захиалгыг бүртгэх API

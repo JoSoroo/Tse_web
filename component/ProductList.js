@@ -21,8 +21,7 @@ class ProductList extends HTMLElement {
     }
     set Products(products) { 
         this.products = products;
-        this.filteredProducts = products;//Бүтээг
-        // дэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
+        this.filteredProducts = products;//Бүтээгдэхүүнүүдийг шүүхээс өмнө бүх бүтээгдэхүүнийг filteredProducts-д хадгална.
         this.render();
     }
     get Products(){
@@ -31,19 +30,27 @@ class ProductList extends HTMLElement {
     //Компонентын аттрибут солигдоход өөрчлөлт шууд wc доо хувиралт өгч байх. (1 оноо)
     attributeChangedCallback(name, oldValue, newValue) {
         // Аттрибут өөрчлөгдөх үед автоматаар ажиллах функц
+        console.log('attributeChangedCallback function duuddagdaj bna'); 
         if (name === "theme" && oldValue !== newValue) {
             this.updateTheme(newValue);
         }
     }
     
     updateTheme(theme) {
-        // Theme солих функц
+        setTimeout(() => {
+        let section = this.shadowRoot.querySelector(".sharefoodsection");
+        console.log('Section:', section);
+        console.log('updateTheme ajillaj bna'); 
+        // Theme өөрчлөгдсөн тохиолдолд л style-г өөрчилье
         if (theme === "dark") {
-            this.shadowRoot.querySelector(".sharefoodsection").classList.add("dark-mode");
+            section.classList.add("dark-mode");
         } else {
-            this.shadowRoot.querySelector(".sharefoodsection").classList.remove("dark-mode");
+            section.classList.remove("dark-mode");
         }
+        }, 100);
     }
+    
+    
     
     //Элемент холбогдох үед шүүлтүүр болон эвентийн сонсогч нэмэх
     connectedCallback() {
@@ -55,11 +62,7 @@ class ProductList extends HTMLElement {
                     : this.products.filter((p) => p.category === category);//Эс бөгөөс тухайн категорид харгалзах бүтээгдэхүүнүүдийг filter-ээр шүүж байна.
             this.render();
         });
-        // Аттрибутын өөрчлөлт гарсны дараа theme өөрчлөгдсөнийг хянаж, render-г дуудна
-        const theme = this.getAttribute("theme") || "light"; // Дараах хэрэглэгчийн theme аттрибут
-        this.setAttribute("theme", theme); // Аттрибутыг шинэчлэх
-        this.render();
-    }
+        }
 
     //state() ашиглаж стилүүдийг зааж өгөх
     //Тоо хэмжээг нэмэх, хасах
@@ -276,14 +279,25 @@ class ProductList extends HTMLElement {
                 gap: 10px; /* Заагдсан зай */
                 margin-top: 10px; /* Дээд талын зай */
             }
-            @media (prefers-color-schema: dark){
-                :root {
-                    --primary-bg: #333; /* Dark горимд фоны өнгө */
-                    --secondary-bg: #fff; /* Dark горимд хоёрдогч фоны өнгө */
-                    --primary-text: #fff; /* Dark горимд текстийн өнгө */
-                    --secondary-text: #333; /* Dark горимд хоёрдогч текстийн өнгө */
-                    }
-                }
+             /* Style: Dark/Light toggle button */
+            .theme-toggle {
+                position: fixed; /* Always visible */
+                bottom: 20px; /* At the bottom */
+                right: 20px; /* At the right */
+                padding: 10px 20px; /* Padding */
+                border-radius: 8px; /* Rounded corners */
+                background-color: var(--highlight-color); /* Highlighted color */
+                color: var(--secondary-text); /* Text color */
+                font-size: 16px; /* Font size */
+                font-weight: bold; /* Bold text */
+                cursor: pointer; /* Pointer cursor */
+                border: none; /* No border */
+                transition: background-color var(--transition-duration); /* Smooth transition */
+            }
+
+            .theme-toggle:hover {
+                background-color: #e69d00; /* Change on hover */
+            }
 
 </style>
            
@@ -307,6 +321,10 @@ class ProductList extends HTMLElement {
                     )
                     .join("")}
             </section>
+             <!-- Dark/Light Theme Toggle Button -->
+            <button class="theme-toggle">
+                ${this.getAttribute("theme") === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
         `;
 
         // Тоо хэмжээг өөрчлөх эвентийн сонсогч
@@ -342,6 +360,12 @@ class ProductList extends HTMLElement {
                     redCircle.classList.add("active");
                 }
             });
+        });
+         //theme-toggle товчийг дарсан үед theme аттрибутыг "dark" эсвэл "light" гэж сольж, theme-г өөрчлөх
+        const themeToggleButton = this.shadowRoot.querySelector(".theme-toggle");
+        themeToggleButton.addEventListener("click", () => {
+            const currentTheme = this.getAttribute("theme");
+            this.setAttribute("theme", currentTheme === "dark" ? "light" : "dark");
         });
        
         
